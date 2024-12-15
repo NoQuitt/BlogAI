@@ -69,7 +69,7 @@ const generateAndPost = async () => {
   try {
     console.log("Inizio processo di generazione post...");
 
-    const promptFilePath = `${process.cwd()}/prompt.docx`;
+    const promptFilePath = `${process.cwd()}/prompt.pdf`;
     let prompt;
     try {
       prompt = await anyText.getText(promptFilePath);
