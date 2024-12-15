@@ -29,11 +29,11 @@ const generateContentAI = async (prompt) => {
     messages: [
       {
         role: "system",
-        content: config.writerGPTPrompt,
+        content: prompt,
       },
       {
         role: "user",
-        content: prompt,
+        content: config.writerGPTPrompt,
       },
     ],
   });
