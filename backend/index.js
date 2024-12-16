@@ -7,6 +7,7 @@ import config from "./config.json" assert { type: "json" };
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import OpenAI from "openai";
+import { PdfExtractor } from "pdf-extractor";
 dotenv.config();
 
 const AIClient = new OpenAI({
