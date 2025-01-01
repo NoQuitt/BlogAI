@@ -5,7 +5,6 @@ import anyText from "any-text";
 import dotenv from "dotenv";
 import config from "./config.json" assert { type: "json" };
 import { fileURLToPath } from "url";
-import { dirname } from "path";
 import OpenAI from "openai";
 import matter from 'gray-matter';
 import express from "express";
@@ -44,8 +43,6 @@ const AIClient = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: "https://api.x.ai/v1",
 });
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 const twitterClient = new TwitterApi({
   appKey: process.env.TWITTER_APP_KEY,
