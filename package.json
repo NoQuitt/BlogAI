@@ -12,6 +12,12 @@
     "@astrojs/mdx": "^4.0.2",
     "@astrojs/rss": "^4.0.10",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.0.5"
+    "any-text": "^1.2.0",
+    "astro": "^5.0.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "gray-matter": "^4.0.3",
+    "openai": "^4.77.0",
+    "twitter-api-v2": "^1.19.0"
   }
 }

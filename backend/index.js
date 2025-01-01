@@ -7,8 +7,38 @@ import config from "./config.json" assert { type: "json" };
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import OpenAI from "openai";
-import { PdfExtractor } from "pdf-extractor";
+import matter from 'gray-matter';
+import express from "express";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const app = express();
 dotenv.config();
+
+app.get("/blog", async (req, res) => {
+  try {
+    const blogDir = path.join(__dirname, '../src/content/blog');
+    const files = fs.readdirSync(blogDir);
+
+    const posts = files.map((fileName) => {
+      const filePath = path.join(blogDir, fileName);
+      const fileContent = fs.readFileSync(filePath, 'utf-8');
+      
+      const { data, content } = matter(fileContent);
+
+      return {
+        slug: fileName.replace(/\.md$/, ''), 
+        ...data, 
+        content, 
+      };
+    });
+
+    res.json(posts);
+  } catch (error) {
+    console.error("Errore nell'estrazione dei post:", error);
+    res.status(500).json({ message: "Errore nell'estrazione dei post" });
+  }
+});
 
 const AIClient = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -110,3 +140,8 @@ const formatCronToHuman = (cronTime) => {
 
 console.log("Esecuzione pianificata per:", formatCronToHuman(config.cronTime));
 new CronJob(config.cronTime, generateAndPost, null, true, "Europe/Rome");
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server in esecuzione sulla porta ${PORT}`);
+});
